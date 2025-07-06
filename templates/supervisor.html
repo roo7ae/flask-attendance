@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>لوحة المشرف</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>🧑‍💼 مرحباً {{ session['name'] }} - مشرف</h2>
+
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="flash">{{ messages[0] }}</div>
+            {% endif %}
+        {% endwith %}
+
+        <!-- تسجيل الحضور للمشرف -->
+        <form id="attendanceForm" method="POST">
+            <input type="hidden" name="latitude" id="latitude">
+            <input type="hidden" name="longitude" id="longitude">
+            <button type="button" onclick="submitWithLocation('in')">🟢 تسجيل الحضور</button>
+            <button type="button" onclick="submitWithLocation('out')">🔴 تسجيل الانصراف</button>
+        </form>
+
+        <div style="text-align:center; margin: 20px 0;">
+            <a href="/supervisor/attendance">📄 عرض سجل الحضور</a> |
+            <a href="/logout">🚪 تسجيل الخروج</a>
+        </div>
+
+        <h3>👥 الموظفون:</h3>
+        <table>
+            <tr>
+                <th>الاسم</th>
+                <th>اسم المستخدم</th>
+            </tr>
+            {% for emp in employees %}
+            <tr>
+                <td>{{ emp[1] }}</td>
+                <td>{{ emp[2] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <script>
+    function submitWithLocation(type) {
+        if (!navigator.geolocation) {
+            alert('❗ المتصفح لا يدعم تحديد الموقع');
+            return;
+        }
+        navigator.geolocation.getCurrentPosition(success, error);
+        function success(position) {
+            const lat = position.coords.latitude;
+            const lng = position.coords.longitude;
+            document.getElementById('latitude').value = lat;
+            document.getElementById('longitude').value = lng;
+            document.getElementById('attendanceForm').action = '/attendance/' + type;
+            document.getElementById('attendanceForm').submit();
+        }
+        function error() {
+            alert('⚠️ حدث خطأ في تحديد الموقع');
+        }
+    }
+    </script>
+
+    {% include 'footer.html' %}
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>لوحة الموظف</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>👋 مرحباً {{ name }}</h2>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="flash">{{ messages[0] }}</div>
+            {% endif %}
+        {% endwith %}
+        <form id="attendanceForm" method="POST">
+            <input type="hidden" name="latitude" id="latitude">
+            <input type="hidden" name="longitude" id="longitude">
+            <button type="button" onclick="submitWithLocation('in')">🟢 تسجيل الحضور</button>
+            <button type="button" onclick="submitWithLocation('out')">🔴 تسجيل الانصراف</button>
+        </form>
+        <div style="text-align:center; margin-top:20px;">
+            <a href="/my_attendance">📄 عرض السجل</a> |
+            <a href="/change_password">🔑 تغيير كلمة المرور</a> |
+            <a href="/logout">🚪 تسجيل الخروج</a>
+        </div>
+    </div>
+    <script>
+    function submitWithLocation(type) {
+        if (!navigator.geolocation) {
+            alert('❗ المتصفح لا يدعم تحديد الموقع');
+            return;
+        }
+        navigator.geolocation.getCurrentPosition(success, error);
+        function success(position) {
+            const lat = position.coords.latitude;
+            const lng = position.coords.longitude;
+            document.getElementById('latitude').value = lat;
+            document.getElementById('longitude').value = lng;
+            document.getElementById('attendanceForm').action = '/attendance/' + type;
+            document.getElementById('attendanceForm').submit();
+        }
+        function error() {
+            alert('⚠️ حدث خطأ في تحديد الموقع');
+        }
+    }
+    </script>
+    {% include 'footer.html' %}
+</body>
+</html>

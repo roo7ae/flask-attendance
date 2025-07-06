@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>📤 رفع موظفين عبر Excel</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="container">
+    <h2>📤 رفع ملف Excel لإضافة الموظفين</h2>
+
+    {% if message %}
+        <div class="flash">{{ message }}</div>
+    {% endif %}
+
+    <form method="POST" enctype="multipart/form-data">
+        <input type="file" name="file" accept=".xlsx" required>
+        <button type="submit">📥 رفع الملف</button>
+    </form>
+
+    <div style="text-align:center; margin-top:20px;">
+        <a href="/admin">⬅️ العودة إلى لوحة المدير</a>
+    </div>
+
+    <div class="note" style="margin-top:25px;">
+        <p>📌 تأكد أن الملف يحتوي على الأعمدة التالية في الصف الأول:</p>
+        <ul>
+            <li><b>name</b> - اسم الموظف</li>
+            <li><b>username</b> - اسم المستخدم</li>
+            <li><b>password</b> - كلمة المرور</li>
+        </ul>
+    </div>
+</div>
+{% include 'footer.html' %}
+</body>
+</html>

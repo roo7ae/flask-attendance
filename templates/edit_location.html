@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>⚙️ تعديل الموقع الجغرافي</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="container">
+    <h2>⚙️ تعديل الموقع الجغرافي المسموح به</h2>
+
+    {% if message %}
+        <div class="flash">{{ message }}</div>
+    {% endif %}
+
+    <form method="POST">
+        <label>📍 خط العرض (Latitude):</label>
+        <input type="text" name="lat" value="{{ lat }}" required>
+
+        <label>📍 خط الطول (Longitude):</label>
+        <input type="text" name="lon" value="{{ lon }}" required>
+
+        <button type="submit">💾 حفظ التغييرات</button>
+    </form>
+
+    <div style="margin-top: 20px;">
+        <a href="/admin">⬅️ العودة إلى لوحة المدير</a>
+    </div>
+</div>
+{% include 'footer.html' %}
+</body>
+</html>

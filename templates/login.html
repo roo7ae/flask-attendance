@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>تسجيل الدخول</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>🔐 تسجيل الدخول</h2>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="flash">{{ messages[0] }}</div>
+            {% endif %}
+        {% endwith %}
+        <form method="POST">
+            <input type="text" name="username" placeholder="👤 اسم المستخدم" required>
+            <input type="password" name="password" placeholder="🔑 كلمة المرور" required>
+            <button type="submit">➡️ دخول</button>
+        </form>
+    </div>
+    {% include 'footer.html' %}
+</body>
+</html>

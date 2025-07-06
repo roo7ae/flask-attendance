@@ -1,0 +1,114 @@
+/* 🌟 تصميم متجاوب وأنيق للهاتف والويب */
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(to bottom right, #ffffff, #e6f0ff);
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+.container {
+    width: 90%;
+    max-width: 500px;
+    margin: 40px auto;
+    background-color: #ffffff;
+    padding: 25px;
+    box-shadow: 0 4px 12px rgba(0, 102, 204, 0.1);
+    border-radius: 15px;
+}
+
+h2 {
+    text-align: center;
+    color: #005a9e;
+    margin-bottom: 20px;
+    font-size: 1.6em;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+input, button {
+    padding: 12px;
+    font-size: 1em;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+input:focus {
+    border-color: #007acc;
+    outline: none;
+}
+
+button {
+    background-color: #007acc;
+    color: white;
+    border: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #005c99;
+}
+
+.flash {
+    color: red;
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 0.9em;
+}
+
+th, td {
+    border: 1px solid #d0e0ff;
+    padding: 10px;
+    text-align: center;
+}
+
+th {
+    background-color: #f0f8ff;
+    color: #004080;
+}
+
+a {
+    color: #007acc;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+footer {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 0.85em;
+    color: #888;
+}
+
+/* دعم الشاشات الصغيرة */
+@media (max-width: 600px) {
+    .container {
+        padding: 15px;
+        width: 95%;
+    }
+
+    table, th, td {
+        font-size: 0.85em;
+    }
+
+    button, input {
+        font-size: 1em;
+    }
+}

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>لوحة المدير</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>👨‍💼 لوحة تحكم المدير</h2>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="flash">{{ messages[0] }}</div>
+            {% endif %}
+        {% endwith %}
+        <div style="text-align:center; margin-bottom:20px;">
+            <a href="/add_employee">➕ إضافة موظف</a> |
+            <a href="/admin/attendance">📊 سجل الحضور</a> |
+            <a href="/upload_users">📤 رفع موظفين عبر Excel</a> |
+            <a href="/admin/location">📍 تعديل الموقع</a> |
+            <a href="/logout">🚪 تسجيل الخروج</a>
+        </div>
+        <table>
+            <tr>
+                <th>👷‍♂️ الاسم</th>
+                <th>👤 اسم المستخدم</th>
+                <th>🎯 الدور</th>
+                <th>✏️ تعديل</th>
+                <th>🔁 تغيير الدور</th>
+                <th>🗑️ حذف</th>
+            </tr>
+            {% for emp in employees %}
+            <tr>
+                <td>{{ emp[1] }}</td>
+                <td>{{ emp[2] }}</td>
+                <td>{{ emp[4] }}</td>
+                <td><a href="/edit_employee/{{ emp[0] }}">تعديل</a></td>
+                <td>
+                    {% if emp[4] == 'employee' %}
+                        <a href="/promote/{{ emp[0] }}">⬆️ مشرف</a>
+                    {% elif emp[4] == 'supervisor' %}
+                        <a href="/demote/{{ emp[0] }}">⬇️ موظف</a>
+                    {% endif %}
+                </td>
+                <td><a href="/delete_employee/{{ emp[0] }}" onclick="return confirm('هل أنت متأكد من الحذف؟')">حذف</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    {% include 'footer.html' %}
+</body>
+</html>

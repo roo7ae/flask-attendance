@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ 'تعديل' if action == 'edit' else 'إضافة' }} موظف</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>{{ '✏️ تعديل' if action == 'edit' else '➕ إضافة' }} موظف</h2>
+        <form method="POST">
+            <input type="text" name="name" placeholder="👷‍♂️ الاسم" value="{{ employee[1] if action == 'edit' else '' }}" required>
+            <input type="text" name="username" placeholder="👤 اسم المستخدم" value="{{ employee[2] if action == 'edit' else '' }}" required>
+            <input type="password" name="password" placeholder="🔑 كلمة المرور" value="{{ employee[3] if action == 'edit' else '' }}" required>
+            <button type="submit">{{ '💾 تحديث' if action == 'edit' else '💾 إضافة' }}</button>
+        </form>
+        <div style="text-align:center; margin-top:20px;">
+            <a href="/admin">⬅️ العودة إلى لوحة المدير</a>
+        </div>
+    </div>
+    {% include 'footer.html' %}
+</body>
+</html>
