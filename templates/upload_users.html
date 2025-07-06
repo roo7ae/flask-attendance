@@ -1,36 +1,116 @@
 <!DOCTYPE html>
+
 <html lang="ar">
 <head>
-    <meta charset="UTF-8">
-    <title>📤 رفع موظفين عبر Excel</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<meta charset="utf-8"/>
+<title>📤 رفع موظفين عبر Excel</title>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet"/>
+
+<style>
+body {
+    font-family: 'Tajawal', sans-serif;
+    background: linear-gradient(to bottom, #FFF8E1, #fdf6e3);
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 600px;
+    margin: 40px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+}
+
+h2 {
+    text-align: center;
+    color: #C5A880;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+input, select {
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+}
+
+button {
+    margin-top: 20px;
+    padding: 12px;
+    background: #D4AF37;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #b8922a;
+}
+
+.flash {
+    background: #ffe6cc;
+    padding: 10px;
+    border: 1px solid #f0c36d;
+    border-radius: 10px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+a {
+    color: #C5A880;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .container {
+        margin: 20px;
+        padding: 15px;
+    }
+}
+</style>
 </head>
 <body>
 <div class="container">
-    <h2>📤 رفع ملف Excel لإضافة الموظفين</h2>
+<h2>📤 رفع ملف Excel لإضافة الموظفين</h2>
 
     {% if message %}
         <div class="flash">{{ message }}</div>
     {% endif %}
 
-    <form method="POST" enctype="multipart/form-data">
-        <input type="file" name="file" accept=".xlsx" required>
-        <button type="submit">📥 رفع الملف</button>
-    </form>
-
-    <div style="text-align:center; margin-top:20px;">
-        <a href="/admin">⬅️ العودة إلى لوحة المدير</a>
-    </div>
-
-    <div class="note" style="margin-top:25px;">
-        <p>📌 تأكد أن الملف يحتوي على الأعمدة التالية في الصف الأول:</p>
-        <ul>
-            <li><b>name</b> - اسم الموظف</li>
-            <li><b>username</b> - اسم المستخدم</li>
-            <li><b>password</b> - كلمة المرور</li>
-        </ul>
-    </div>
+    <form enctype="multipart/form-data" method="POST">
+<input accept=".xlsx" name="file" required="" type="file"/>
+<button type="submit">📥 رفع الملف</button>
+</form>
+<div style="text-align:center; margin-top:20px;">
+<a href="/admin">⬅️ العودة إلى لوحة المدير</a>
+</div>
+<div class="note" style="margin-top:25px;">
+<p>📌 تأكد أن الملف يحتوي على الأعمدة التالية في الصف الأول:</p>
+<ul>
+<li><b>name</b> - اسم الموظف</li>
+<li><b>username</b> - اسم المستخدم</li>
+<li><b>password</b> - كلمة المرور</li>
+</ul>
+</div>
 </div>
 {% include 'footer.html' %}
 </body>

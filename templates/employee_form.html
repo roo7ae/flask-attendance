@@ -1,24 +1,106 @@
 <!DOCTYPE html>
+
 <html lang="ar">
 <head>
-    <meta charset="UTF-8">
-    <title>{{ 'تعديل' if action == 'edit' else 'إضافة' }} موظف</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<meta charset="utf-8"/>
+<title>{{ 'تعديل' if action == 'edit' else 'إضافة' }} موظف</title>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet"/>
+
+<style>
+body {
+    font-family: 'Tajawal', sans-serif;
+    background: linear-gradient(to bottom, #FFF8E1, #fdf6e3);
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 600px;
+    margin: 40px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+}
+
+h2 {
+    text-align: center;
+    color: #C5A880;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+input, select {
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+}
+
+button {
+    margin-top: 20px;
+    padding: 12px;
+    background: #D4AF37;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #b8922a;
+}
+
+.flash {
+    background: #ffe6cc;
+    padding: 10px;
+    border: 1px solid #f0c36d;
+    border-radius: 10px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+a {
+    color: #C5A880;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .container {
+        margin: 20px;
+        padding: 15px;
+    }
+}
+</style>
 </head>
 <body>
-    <div class="container">
-        <h2>{{ '✏️ تعديل' if action == 'edit' else '➕ إضافة' }} موظف</h2>
-        <form method="POST">
-            <input type="text" name="name" placeholder="👷‍♂️ الاسم" value="{{ employee[1] if action == 'edit' else '' }}" required>
-            <input type="text" name="username" placeholder="👤 اسم المستخدم" value="{{ employee[2] if action == 'edit' else '' }}" required>
-            <input type="password" name="password" placeholder="🔑 كلمة المرور" value="{{ employee[3] if action == 'edit' else '' }}" required>
-            <button type="submit">{{ '💾 تحديث' if action == 'edit' else '💾 إضافة' }}</button>
-        </form>
-        <div style="text-align:center; margin-top:20px;">
-            <a href="/admin">⬅️ العودة إلى لوحة المدير</a>
-        </div>
-    </div>
+<div class="container">
+<h2>{{ '✏️ تعديل' if action == 'edit' else '➕ إضافة' }} موظف</h2>
+<form method="POST">
+<input name="name" placeholder="👷‍♂️ الاسم" required="" type="text" value="{{ employee[1] if action == 'edit' else '' }}"/>
+<input name="username" placeholder="👤 اسم المستخدم" required="" type="text" value="{{ employee[2] if action == 'edit' else '' }}"/>
+<input name="password" placeholder="🔑 كلمة المرور" required="" type="password" value="{{ employee[3] if action == 'edit' else '' }}"/>
+<button type="submit">{{ '💾 تحديث' if action == 'edit' else '💾 إضافة' }}</button>
+</form>
+<div style="text-align:center; margin-top:20px;">
+<a href="/admin">⬅️ العودة إلى لوحة المدير</a>
+</div>
+</div>
     {% include 'footer.html' %}
 </body>
 </html>

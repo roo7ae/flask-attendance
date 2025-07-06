@@ -1,53 +1,131 @@
 <!DOCTYPE html>
+
 <html lang="ar">
 <head>
-    <meta charset="UTF-8">
-    <title>سجل الحضور</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<meta charset="utf-8"/>
+<title>سجل الحضور</title>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet"/>
+
+<style>
+body {
+    font-family: 'Tajawal', sans-serif;
+    background: linear-gradient(to bottom, #FFF8E1, #fdf6e3);
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 600px;
+    margin: 40px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+}
+
+h2 {
+    text-align: center;
+    color: #C5A880;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+input, select {
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+}
+
+button {
+    margin-top: 20px;
+    padding: 12px;
+    background: #D4AF37;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #b8922a;
+}
+
+.flash {
+    background: #ffe6cc;
+    padding: 10px;
+    border: 1px solid #f0c36d;
+    border-radius: 10px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+a {
+    color: #C5A880;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .container {
+        margin: 20px;
+        padding: 15px;
+    }
+}
+</style>
 </head>
 <body>
-    <div class="container">
-        <h2>📅 سجل الحضور</h2>
+<div class="container">
+<h2>📅 سجل الحضور</h2>
 
         {% if employees %}
         <form method="POST" style="margin-bottom: 20px;">
-            <label>اختر الموظف:</label>
-            <select name="user_id">
-                <option value="all">الكل</option>
+<label>اختر الموظف:</label>
+<select name="user_id">
+<option value="all">الكل</option>
                 {% for emp in employees %}
                     <option value="{{ emp[0] }}">{{ emp[1] }}</option>
                 {% endfor %}
             </select>
-
-            <label>من تاريخ:</label>
-            <input type="date" name="start_date">
-
-            <label>إلى تاريخ:</label>
-            <input type="date" name="end_date">
-
-            <button type="submit">🔍 تصفية</button>
-        </form>
+<label>من تاريخ:</label>
+<input name="start_date" type="date"/>
+<label>إلى تاريخ:</label>
+<input name="end_date" type="date"/>
+<button type="submit">🔍 تصفية</button>
+</form>
         {% endif %}
 
         <table>
-            <tr>
-                <th>الرقم</th>
-                <th>الاسم</th>
-                <th>النوع</th>
-                <th>الوقت</th>
-            </tr>
+<tr>
+<th>الرقم</th>
+<th>الاسم</th>
+<th>النوع</th>
+<th>الوقت</th>
+</tr>
             {% for rec in records %}
             <tr>
-                <td>{{ rec[0] }}</td>
-                <td>{{ rec[1] }}</td>
-                <td>{{ '🟢 دخول' if rec[2] == 'in' else '🔴 خروج' }}</td>
-                <td>{{ rec[3] }}</td>
-            </tr>
+<td>{{ rec[0] }}</td>
+<td>{{ rec[1] }}</td>
+<td>{{ '🟢 دخول' if rec[2] == 'in' else '🔴 خروج' }}</td>
+<td>{{ rec[3] }}</td>
+</tr>
             {% endfor %}
         </table>
-
-        <div style="text-align:center; margin-top: 20px;">
+<div style="text-align:center; margin-top: 20px;">
             {% if session['role'] == 'admin' %}
                 <a href="/admin">⬅️ عودة إلى لوحة المدير</a>
             {% elif session['role'] == 'supervisor' %}
@@ -56,7 +134,7 @@
                 <a href="/dashboard">⬅️ عودة</a>
             {% endif %}
         </div>
-    </div>
+</div>
     {% include 'footer.html' %}
 </body>
 </html>

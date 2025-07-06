@@ -1,32 +1,114 @@
 <!DOCTYPE html>
+
 <html lang="ar">
 <head>
-    <meta charset="UTF-8">
-    <title>لوحة الموظف</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<meta charset="utf-8"/>
+<title>لوحة الموظف</title>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet"/>
+
+<style>
+body {
+    font-family: 'Tajawal', sans-serif;
+    background: linear-gradient(to bottom, #FFF8E1, #fdf6e3);
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 600px;
+    margin: 40px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+}
+
+h2 {
+    text-align: center;
+    color: #C5A880;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+input, select {
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+}
+
+button {
+    margin-top: 20px;
+    padding: 12px;
+    background: #D4AF37;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #b8922a;
+}
+
+.flash {
+    background: #ffe6cc;
+    padding: 10px;
+    border: 1px solid #f0c36d;
+    border-radius: 10px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+a {
+    color: #C5A880;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .container {
+        margin: 20px;
+        padding: 15px;
+    }
+}
+</style>
 </head>
 <body>
-    <div class="container">
-        <h2>👋 مرحباً {{ name }}</h2>
+<div class="container">
+<h2>👋 مرحباً {{ name }}</h2>
         {% with messages = get_flashed_messages() %}
             {% if messages %}
                 <div class="flash">{{ messages[0] }}</div>
             {% endif %}
         {% endwith %}
         <form id="attendanceForm" method="POST">
-            <input type="hidden" name="latitude" id="latitude">
-            <input type="hidden" name="longitude" id="longitude">
-            <button type="button" onclick="submitWithLocation('in')">🟢 تسجيل الحضور</button>
-            <button type="button" onclick="submitWithLocation('out')">🔴 تسجيل الانصراف</button>
-        </form>
-        <div style="text-align:center; margin-top:20px;">
-            <a href="/my_attendance">📄 عرض السجل</a> |
+<input id="latitude" name="latitude" type="hidden"/>
+<input id="longitude" name="longitude" type="hidden"/>
+<button onclick="submitWithLocation('in')" type="button">🟢 تسجيل الحضور</button>
+<button onclick="submitWithLocation('out')" type="button">🔴 تسجيل الانصراف</button>
+</form>
+<div style="text-align:center; margin-top:20px;">
+<a href="/my_attendance">📄 عرض السجل</a> |
             <a href="/change_password">🔑 تغيير كلمة المرور</a> |
             <a href="/logout">🚪 تسجيل الخروج</a>
-        </div>
-    </div>
-    <script>
+</div>
+</div>
+<script>
     function submitWithLocation(type) {
         if (!navigator.geolocation) {
             alert('❗ المتصفح لا يدعم تحديد الموقع');
